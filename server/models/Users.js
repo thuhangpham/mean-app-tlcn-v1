@@ -12,8 +12,8 @@ var validateEmail = function(email) {
 var userSchema = new schema({
     info                :
     {
-        first_name      : {type : String,  trim: true,},
-        last_name       : {type : String,  trim: true,},
+        first_name      : {type : String,  trim: true, required: 'Firs name is required'},
+        last_name       : {type : String,  trim: true, required: 'Last name is required'},
         gender          : {type : String},
         dob             : {type : String},
         employment_sitution : {type : objectId, ref : 'employment_sitution'},
@@ -37,10 +37,10 @@ var userSchema = new schema({
                             validate: [validateEmail, 'Please fill a valid email address'],
                             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
                         },
-        phone           : {type : String},
+        phone           : {type : String, required: 'Firs name is required'},
         web_page        : {type : String}
     },
-    password            : {type : String,  trim: true,},
+    password            : {type : String,  trim: true, required: 'Password is required'},
     image               : {type : String},
     create_at           : {type : Date, default : Date.now()},
     last_update         : {type : Date, default : Date.now()}

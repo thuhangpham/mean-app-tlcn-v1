@@ -2,10 +2,11 @@
 const mongoose = require('mongoose');
 const objectId = mongoose.Schema.Types.ObjectId;
 const schema = mongoose.Schema;
+const comment = require('./comment.js');
 
 var postSchema = new schema({
     owner       : {type : objectId, ref : 'users'},
-    title       : {type : String, required : true},
+    title       : {type : String, required : 'Title is required!'},
     desciption  : {type : String},
     start_date  : Date,
     end_date    : Date,
@@ -26,6 +27,8 @@ var postSchema = new schema({
         street : String,
         house_number : Number
     },
+    comments    : [comment.schema],
+    Areas_expertise_id : {type : objectId}
 
 });
 postSchema.pre('save', (next)=>{

@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 var etSchema = new schema({
-    name                : {type : String, unique : true, required : true },
+    name                : {type : String, unique : true, required : 'Name is required!' },
     description         : {type : String},
     create_at           : {type : Date},
     last_update         : {type : Date, default : Date.now() },
     areas_ex_details    :
     [   
         {
-            name        : {type : String, unique : true},
+            name        : {type : String, unique : true, required : 'Name is required!'},
             description : {type : String},
             create_at   : {type : Date},
             last_update : {type : Date, default : Date.now()}

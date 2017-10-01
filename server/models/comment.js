@@ -4,13 +4,13 @@ const schema = mongoose.Schema;
 
 var cmtSchema = new schema({
     owner               : {type : mongoose.Schema.Types.ObjectId, ref : 'users'},
-    content             : {type : String},
+    content             : {type : String, trim : true},
     create_at           : {type : Date},
     last_update         : {type : Date, default : Date.now() },
     reply               : [
         {
             owner               : {type : mongoose.Schema.Types.ObjectId, ref : 'users'},
-            content             : {type : String},
+            content             : {type : String, trim : true},
             create_at           : {type : Date},
             last_update         : {type : Date, default : Date.now() }
         }
