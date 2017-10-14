@@ -13,9 +13,9 @@ var postSchema = new schema({
     number      : Number,
     content     :
     {
-        tasks   : String,
-        objective: String,
-        requirement: String,
+        tasks   : { type: String, trim: true, required: 'Tasks is required'},
+        objective:  { type: String, trim: true, Objective: 'Objective is required'},
+        requirement:  { type: String, trim: true, Objective: 'Requirement is required'},
         comment : String
     },
     location    :

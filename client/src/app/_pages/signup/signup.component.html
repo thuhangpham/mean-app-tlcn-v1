@@ -1,0 +1,150 @@
+<h3 class="text-center" style="color: #ff9900; margin-bottom: 2em;margin-top: 1em">Sign up</h3>
+<form #f="ngForm" (ngSubmit)="f.form.valid && signup(f.value)" style="margin-top: 1rem;">
+    <div class="row justify-content-center">
+        <div class="col-md-4 offset-md-2 col-sm-4 offset-sm-2">
+            <h4>Infomation</h4>
+            <fieldset ngModelGroup="info">
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Firstname:</label>
+                    <div class="col-md-8">
+                        <input type="text" name="first_name" required minlength="1" maxlength="30" #firstName="ngModel" class="form-control" [(ngModel)]="first_name">
+                        <div *ngIf="f.submitted&&firstName.errors?.required" style="color:red;" class="form-control-feedback">First Name is required</div>
+                        <!-- <div *ngIf="firstName.errors?.maxlength&&!firstName.errors?.required" class="form-control-feedback">First Name must less than 30 character.</div> -->
+                        <!-- <div *ngIf="!firstName?.valid&&f.submitted&&!firstName.errors?.required" class="form-control-feedback">First Name must less than 30 character.</div> -->
+                        <!-- <div class="form-control-feedback">Sorry, that username's taken. Try another?</div> -->
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Lastname:</label>
+                    <div class="col-md-8">
+                        <input type="text" required minlength="1" maxlength="30" class="form-control" #lastName="ngModel" name="last_name" [(ngModel)]="last_name">
+                        <div *ngIf="f.submitted&&lastName.errors?.required" style="color:red;" class="form-control-feedback">Last Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Gender:</label>
+                    <div class="col-md-8">
+                        <select required name="gender" [(ngModel)]="gender" #ggender="ngModel" class="form-control">
+                            <option value="0">Female</option>
+                            <option value="1">Male</option>
+                            <option value="2">Other</option>
+                        </select>
+                        <div *ngIf="f.submitted&&ggender.errors?.required" style="color:red;" class="form-control-feedback">Gender is required</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">DOB:</label>
+                    <div class="col-md-8">
+                        <input min="{{minYear}}" max="{{maxYear}}" required type="date" name="dob" #ddob="ngModel" [(ngModel)]="dob" class="form-control">
+                        <div *ngIf="f.submitted&&ddob.errors?.required" style="color:red;" class="form-control-feedback">Dob is required</div>
+                        <div *ngIf="f.submitted&&ddob?.invalid&&!ddob.errors?.required" style="color:red;" class="form-control-feedback">Dob is invalid</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Areas expertise:</label>
+                    <div class="col-md-8">
+                            <!-- [attr.selected]="areaExs?.data ? true : null" -->
+                        <select required #aareas="ngModel" name="areas_expertise" class="form-control" [(ngModel)]="areas_expertise">
+                            <option *ngFor="let e of areaExs?.data" value="{{e._id}}">{{e.name}}</option>                            
+                        </select>
+                        <div *ngIf="f.submitted&&aareas.errors?.required" style="color:red;" class="form-control-feedback">Areas expertise is invalid</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Employment situation:</label>
+                    <div class="col-md-8">
+                        <select required #empl="ngModel" name="employment_sitution" class="form-control" [(ngModel)]="employment_sitution">  
+                                <!-- [attr.selected]="employSt?.data ? true : null"   -->
+                            <option *ngFor="let e of employSt?.data" value="{{e._id}}">{{e.name}}</option>                           
+                        </select>
+                        <div *ngIf="f.submitted&&empl.errors?.required" style="color:red;" class="form-control-feedback">Employment situation is invalid</div>
+                    </div>
+                </div>
+            </fieldset>
+            <h4>Contact</h4>
+            <fieldset ngModelGroup="contact">
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Email:</label>
+                    <div class="col-md-8">
+                        <input type="email" name="email" required #eemail="ngModel" id="" [(ngModel)]="email" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                        <div *ngIf="f.submitted&&eemail.errors?.required" style="color:red;" class="form-control-feedback">Email is required</div>
+                        <div *ngIf="f.submitted&&eemail.errors?.pattern" style="color:red;" class="form-control-feedback">Email is invalid</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Telehone:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" pattern="[0-9]{9,40}" type="text" required name="phone" id="" [(ngModel)]="phone" #pphone="ngModel">
+                        <div *ngIf="f.submitted&&pphone.errors?.required" style="color:red;" class="form-control-feedback">Telephone is required</div>
+                        <div *ngIf="f.submitted&&!pphone.errors?.required&&pphone?.invalid" style="color:red;" class="form-control-feedback">Telephone is invalid</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Web page:</label>
+                    <div class="col-md-8">
+                        <input type="url" name="web_page" id="" [(ngModel)]="web_page" class="form-control">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-4 offset-md-2 col-sm-4 offset-sm-2">
+            <h4>Address recidence</h4>
+            <fieldset ngModelGroup="address_residence">
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">City:</label>
+                    <div class="col-md-8">
+                            <!-- [attr.selected]="cities?.data ? true : null"  -->
+                        <select #ccity="ngModel" required name="city" class="form-control" [(ngModel)]="city" (ngModelChange)="onChangeCity($event)">
+                            <option   *ngFor="let e of cities?.data ; let i = index" value="{{e.CityId}}">{{e.CityName}}</option>    
+                        </select>
+                        <div *ngIf="f.submitted&&ccity?.invalid" style="color:red;" class="form-control-feedback">City is required</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">District:</label>
+                    <div class="col-md-8">
+                        <select required #ddistrict="ngModel" required name="district" class="form-control" [(ngModel)]="district" (ngModelChange)="onChangeDistrict($event)">
+                            <option  *ngFor="let e of districtes?.data" value="{{e.ProvinceId}}">{{e.ProvinceName}}</option>                            
+                        </select>
+                        <div *ngIf="f.submitted&&ddistrict.errors?.required" style="color:red;" class="form-control-feedback">District is required</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Ward:</label>
+                    <div class="col-md-8">
+                        <select required #wward="ngModel" required name="ward" class="form-control" [(ngModel)]="ward">
+                            <option [attr.selected]="wards?.data ? true : null"  *ngFor="let e of wards?.data" value="{{e.WardId}}">{{e.WardName}}</option>                            
+                            </select>
+                        <div *ngIf="f.submitted&&wward.errors?.required" style="color:red;" class="form-control-feedback">Ward is required</div>
+                    </div>
+                </div>                
+            </fieldset>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label">Password:</label>
+                <div class="col-md-8">
+                    <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" name="password" id="" [(ngModel)]="password" class="form-control" #ppassword="ngModel">
+                    <div *ngIf="f.submitted&&ppassword.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div>
+                    <div *ngIf="f.submitted&&ppassword.errors?.pattern" style="color:red;" class="form-control-feedback">Minimum eight characters, at least one letter, one number and one special character.</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                    <label class="col-md-4 col-form-label">Reenter Password:</label>
+                    <div class="col-md-8">
+                        <input required type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" name="password2" id="" [(ngModel)]="password2" class="form-control" #ppassword2="ngModel">
+                        <div *ngIf="f.submitted&&ppassword2.errors?.required" style="color:red;" class="form-control-feedback">Password is required</div>
+                        <div *ngIf="f.submitted&&!ppassword2.errors?.required&&!(password2===password)" style="color:red;" class="form-control-feedback">Password is not match.</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="row justify-content-start">
+        <div class="col-md-6 col-sm-2"></div>
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary">Register</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                />
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,6 +1,6 @@
 'use strict';
 const UsersController = require('../controllers/UsersController.js');
-
+const auth = require('../middle-wares/verify-token');
 module.exports = (app)=>{
     app.route('/users')
     .get(UsersController.getAllUser);
@@ -12,5 +12,9 @@ module.exports = (app)=>{
 
     app.route('/user')
     .post(UsersController.insertUser);
-    console.log(' Users ');
+    
+    app.route('/user/authenticate')
+    .post(UsersController.authentication);
+
+    app.post('/verify', auth,UsersController.verify)
 }

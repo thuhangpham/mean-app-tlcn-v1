@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; */
+/* html {
+    font-size: 14px;
+  } */
+  /* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  
+}
+.my-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+  line-height: 40px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.custom{
+  margin-bottom: 40px;
+  /* overflow: scroll; */
+}
+
+.my-footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+  align-content: center;
+}
+
+code {
+  font-size: 80%;
+}
