@@ -16,14 +16,12 @@ export class VerifyService {
     let token = (currUser && 'token' in currUser) ? currUser.token : this.token;
     let headers = new Headers({ 'x-access-token': token });
     let options = new RequestOptions({ headers: headers });
-    console.log(token);
     return this.http.post(`${this.apiUrl}/verify`, { token: token }).toPromise()
       .then(this.extracData)
       .catch(this.handleError);
   }
   private extracData(res: Response) {
     let body = res.json();
-    console.log(body);
     return body || {};
   }
   private handleError(err: any) {

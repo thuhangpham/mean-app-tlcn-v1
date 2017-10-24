@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Users } from '../../_models/users';
 import { UsersService } from '../../_services/index';
+import { Title }     from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ export class HomeComponent implements OnInit {
   currentUsers : Users;
   users : Users[] = [];
 
-  constructor(private usersService: UsersService) { 
+  constructor(private usersService: UsersService, private titleService: Title) { 
+    this.titleService.setTitle("Home");
   }
 
   ngOnInit() {

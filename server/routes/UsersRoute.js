@@ -16,5 +16,5 @@ module.exports = (app)=>{
     app.route('/user/authenticate')
     .post(UsersController.authentication);
 
-    app.post('/verify', auth,UsersController.verify)
+    app.post('/verify',auth,UsersController.verify)
 }

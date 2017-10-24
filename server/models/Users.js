@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const objectId = mongoose.Schema.Types.ObjectId;
 const schema = mongoose.Schema;
+const gravatar = require('gravatar');
 mongoose.Promise = global.Promise;
 
 var validateEmail = function(email) {
@@ -22,6 +23,9 @@ var userSchema = new schema({
     },
     address_residence   :
     {
+        address: String,
+        latitude: String,
+        longitude: String,
         city            : {type : String},
         district        : {type : String},
         ward            : {type : String},
@@ -65,4 +69,8 @@ userSchema.methods.comparePassword = function(candidatePassword,pwd, callback) {
 userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
+userSchema.methods.getAvartarEmail = function(email, callback){
+    var url = gravatar.url(email, {s: '200', r: 'pg', d: '404'});
+    callback(url);
+}
 module.exports = mongoose.model('users', userSchema);

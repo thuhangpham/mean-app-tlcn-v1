@@ -4,7 +4,7 @@ mongoose.Promise = global.Promise;
 const Users = require('../models/Users.js');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
-
+const gravatar = require('gravatar');
 
 var users = {
 
@@ -29,6 +29,7 @@ var users = {
                 console.log(req.body);
                 var hash = Users.schema.methods.generateHash(req.body.password);
                 req.body.password = hash;
+                req.body.image = gravatar.url(req.body.contact.email, {s: '100'}, false) || '';
                 console.log(req.body.password);
                 Users.create(req.body)
                     .then((data) => { res.json({ result: 1, msg: "", data: data || {} }); })
@@ -76,7 +77,7 @@ var users = {
                         if (isMatch) {
                             
                             let token = jwt.sign({data: user}, config.JWT_SECRET, {
-                                expiresIn: 20 // expires in *1 min
+                                expiresIn: 600 // expires in *1 min
                             });
                             res.json({ result: 1, msg: 'Login successful!', data: user, token:token });
                         }
