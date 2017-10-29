@@ -1,5 +1,5 @@
 export class Users{
-    // _id                 : String;
+    _id                 : String;
     info                :
     {
         first_name      : String;
@@ -12,9 +12,12 @@ export class Users{
     };
     address_residence   :
     { 
-        city            : String;
-        district        : String;
-        ward            : String;
+        address         : String,
+        latitude        : String,
+        longitude       : String,
+        city            : {type : String},
+        district        : {type : String},
+        ward            : {type : String}
     };
     contact             :
     {

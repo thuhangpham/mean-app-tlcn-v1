@@ -1,7 +1,9 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MapsAPILoader, AgmCoreModule } from '@agm/core';
+import { Title } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
+
+import { MapsAPILoader, AgmCoreModule } from '@agm/core';
 import { } from 'googlemaps';
 
 import { UsersService, AlertService, LocationService } from '../../_services/index';
@@ -27,6 +29,7 @@ export class SignupComponent implements OnInit {
   city: Number;
   user: Users = new Users();
   isRouteHome = false;
+  gender: any;
 
   public latitude: number;
   public address: String;
@@ -47,22 +50,21 @@ export class SignupComponent implements OnInit {
     private areaExService: AreaExperService,
     private employSTService: EmploySituationService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private titleService: Title) {
     verifyService.verify().then(res => {
       if (res.result === 1) {
-        this.router.navigate(['/home']);
-        window.location.reload();
+        this.router.navigate(['/']);
       }
-    })
-      .catch(err => {
-
-      })
+    }).catch(err => {  })
 
     this.minYear = (new Date().getFullYear() - 100).toString() + "-12-01";
     this.maxYear = ((new Date()).getFullYear() - 10).toString() + "-12-01";
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Volunteer | Signup");
+    this.gender = 0;
     this.load();
     //set google maps defaults
     this.zoom = 4;
@@ -113,6 +115,10 @@ export class SignupComponent implements OnInit {
   }
   signup(value: any) {
     if (value) {
+      if(!this.latitude || !this.longitude){
+        this.alert.error("Address is incorrect!");
+        return;
+      }
       this.loading = true;
       this.usersService.addUsers(JSON.stringify(value)).subscribe(
         (data) => {
@@ -121,7 +127,6 @@ export class SignupComponent implements OnInit {
             console.log("dang ky OK " + data);
             this.alert.success('Sign up successful!', true);
             this.router.navigate(['/login']);
-            window.location.reload();
           } else {
             this.loading = false;
             console.log("dang ky err " + data);

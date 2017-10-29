@@ -7,21 +7,21 @@ import { appConfig } from '../app.config';
 @Injectable()
 export class UsersService {
   apiUrl = appConfig.apiUrl;
-  private headers = new Headers({'Content-Type':'applicaton/json'});
-  constructor(private http: Http) { 
+  private headers = new Headers({ 'Content-Type': 'applicaton/json' });
+  constructor(private http: Http) {
     // this.headers.append("Access-Control-Allow-Origin", "*");
   }
-  getAll(): Promise<any>{
+  getAll(): Promise<any> {
     return this.http.get(`${this.apiUrl}/users`)
-    .toPromise()
-    .then(this.extracData)
-    .catch(this.handleError);
+      .toPromise()
+      .then(this.extracData)
+      .catch(this.handleError);
   }
-  getUsersById(id):Promise<any>{
-    return this.http.get(`${this.apiUrl}/user/${id}`, {headers: this.headers})
-    .toPromise()
-    .then(this.extracData)
-    .catch(this.handleError);
+  getUsersById(id): Promise<any> {
+    return this.http.get(`${this.apiUrl}/user/${id}`, { headers: this.headers })
+      .toPromise()
+      .then(this.extracData)
+      .catch(this.handleError);
   }
   // addUsers(user):Promise<any>{
   //   console.log('user '+user);
@@ -30,8 +30,8 @@ export class UsersService {
   //   .then(this.extracData)
   //   .catch(this.handleError);
   // }
-  addUsers(user){
-    console.log('user '+user);
+  addUsers(user) {
+    console.log('user ' + user);
     //var u = { "first_name":"Hang" };
     var u: Users;
     u = new Users();
@@ -39,12 +39,32 @@ export class UsersService {
     return this.http.post(`${this.apiUrl}/user`, u);
 
   }
-  private handleError(err: any){
+  updateUser(user) {
+    return this.http.put(`${this.apiUrl}/user`, user);
+  }
+  private handleError(err: any) {
     console.log(err.message || err);
     return err.message || err;
   }
-  private extracData(res: Response){
+  private extracData(res: Response) {
     let body = res.json();
     return body || {};
+  }
+  updateLocal(data, token) {
+    if (!token)
+      token = JSON.parse(localStorage.getItem('currentUser')).token;
+    if (data || token) {
+      let u = {
+        contact: {
+          email: data.contact.email
+        },
+        info: {
+          fullname: data.info.first_name + " " + data.info.last_name
+        },
+        _id: data._id,
+        image: data.image
+      };
+      localStorage.setItem('currentUser', JSON.stringify({ user: u, token: token }));
+    }
   }
 }

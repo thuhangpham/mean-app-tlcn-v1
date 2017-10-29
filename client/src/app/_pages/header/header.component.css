@@ -1,0 +1,19 @@
+nav{
+    height: 40px;
+    background-color: #0F88A7;
+    color: white;
+}
+/* mouse over link */
+a:hover {
+    color: #EB1919;
+    text-decoration: none;
+}
+li a:hover{
+    color: #EB1919;
+}
+a{
+    color: white;
+}
+.dropdown-menu a{
+    color: black;
+}

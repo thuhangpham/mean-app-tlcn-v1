@@ -1,1 +1,50 @@
-<app-tab></app-tab>
+<app-header></app-header>
+<div class="container">
+    <div style="margin-top: 1%" class="row">
+        <div class=" col-sm-5 col-md-3">
+            <div class="row user">
+                <div class="col-xs-3 col-sm-4 col-md-4" style="align-content: center">
+                    <div class="image">
+                        <img class="profile-img rounded-circle img-fluid" src={{image}} alt={{username}}>
+                        <div class="middle">
+                            <div class="text"><a style="text-decoration: none;" href="">Change</a></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-9 col-sm-8 col-md-8">
+                    <div class="row">
+                        <div class="col-md-12" style="top: 50%">
+                            <p><strong>{{username}}</strong></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-md-4" style="align-content: center">
+                            <h6>10,7K</h6>
+                            <p><small>Followers</small></p>
+                            <!-- <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button> -->
+                        </div>
+                        <!--/col-->
+                        <div class="col-md-8" style="align-content: center">
+                            <h6>35</h6>
+                            <p><small>Following</small></p>
+                            <!-- <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button> -->
+                        </div>
+                        <!--/col-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7 col-md-9">
+            <div style="margin-top: 2%" class="row">
+                <ul class="profile-setting" *ngFor="let tab of tabs">
+                    <li [ngClass]="tab.active?'active':''">
+                        <a (click)="tabClick(tab)" routerLink={{tab.link}}>{{tab.title}}</a>
+                    </li>
+                </ul>
+            </div>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>

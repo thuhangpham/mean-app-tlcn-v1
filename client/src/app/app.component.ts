@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { PlatformLocation } from '@angular/common'
-
-import { VerifyService } from '../app/_services/verify.service';
-import { AlertService } from '../app/_services/alert.service';
 import { Router } from '@angular/router';
+import { PlatformLocation } from '@angular/common';
+import { VerifyService } from './_services/verify.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,51 +9,17 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'app';
-  isLogin = false;
-  isRouteHome = true;
-  image = "";
-  username = "";
-  constructor(private route: Router, private alert: AlertService,
-    private verifyService: VerifyService,
-    private location: PlatformLocation) {
+  constructor(private location: PlatformLocation, private router:Router,
+     private verifyService: VerifyService) {
 
     location.onPopState(() => {
+      verifyService.verify().then(res => {
+        if (res.result !== 1) {
+          this.router.navigate(["/home"]);
+        }
+      }).catch(err => {  })
       console.log('pressed back!');
-      window.location.reload();
-
-    });
     
-
-    verifyService.verify().then((res) => {
-      if (res.result === 1) {
-        this.isLogin = true;
-        let currUser = JSON.parse(localStorage.getItem('currentUser')).user;
-        this.image = currUser.image;
-        this.username = currUser.info.fullname;
-      }
-      // }else alert.error("");
-    }, err => {
-      this.isLogin = false;
     });
-
-    if (window.location.pathname === '/login' || this.route.url === '/login')
-      this.isRouteHome = false;
-    if (window.location.pathname === '/signup' || this.route.url === '/signup')
-      this.isRouteHome = false;
-    console.log(window.location.pathname);
-    console.log("this.route.url " + this.route.url)
-  }
-  logout() {
-    localStorage.removeItem("currentUser");
-    this.route.navigate(['/login']);
-    window.location.reload();
-  }
-  signup() {
-    this.route.navigate(['/signup']);
-    window.location.reload();
-  }
-  login() {
-    this.route.navigate(['/login']);
-    window.location.reload();
   }
 }

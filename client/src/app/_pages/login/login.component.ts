@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+
 import { AuthenService } from '../../_services/authen.service';
+import { UsersService } from '../../_services/users.service';
 import { AlertService } from '../../_services/alert.service';
 import { VerifyService } from '../../_services/verify.service';
 @Component({
@@ -13,46 +16,38 @@ export class LoginComponent implements OnInit {
   private password: any;
   loading = false;
   isRouteHome = false;
-  title = "Log in";
   constructor(private authen: AuthenService,
     private alert: AlertService, private router: Router,
-    private verifyService: VerifyService) {
+    private verifyService: VerifyService,
+    private titleService: Title,
+    private userService: UsersService) {
+
     verifyService.verify().then(res => {
       if (res.result === 1) {
-        this.router.navigate(['/home']);
-        window.location.reload();
+        this.router.navigate(['/']);
       }
-    })
-      .catch(err => { })
+    }) .catch(err => { })
   }
-
-
   ngOnInit() {
+    this.titleService.setTitle("Volunteer | Login");
   }
   login(value: any) {
+    let that = this;
     if (value) {
       this.loading = true;
       this.authen.login(this.email, this.password).then((data) => {
         this.loading = false;
         if (data.result === 1) {
-          let u = {
-            contact: { email: this.email },
-            info: {
-              first_name: data.data.info.first_name,
-              last_name: data.data.info.first_name,
-              fullname: data.data.info.first_name+" "+data.data.info.last_name
-            },
-            image: data.data.image
-          };
-          if (data || data.token)
-            localStorage.setItem('currentUser', JSON.stringify({ user: u, token: data.token }));
+          if (data.data || data.token){
+            that.userService.updateLocal(data.data, data.token);
+          }
           this.router.navigate(['/home']);
-          window.location.reload();
         }
         else this.alert.error(data.msg);
       }).catch(err => {
         this.loading = false;
         this.alert.error(err);
+        console.log(err);
       })
     }
   }

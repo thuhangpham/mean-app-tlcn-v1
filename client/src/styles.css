@@ -5,14 +5,12 @@
   } */
   /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
 }
-body {
-  /* Margin bottom by footer height */
-  
-}
+
 .my-footer {
   position: fixed;
   bottom: 0;
@@ -30,10 +28,12 @@ body {
 
 body > .container {
   padding: 60px 15px 0;
+  font-size: 14px;
 }
-.custom{
+.fluid{
   margin-bottom: 40px;
   /* overflow: scroll; */
+  background-color: #F3F0F0;
 }
 
 .my-footer > .container {
@@ -41,7 +41,37 @@ body > .container {
   padding-left: 15px;
   align-content: center;
 }
+a{
+  text-decoration: none;
+  font-size: 14px;
+}
+a:link{
+  color: #5F2C0E;
+  text-decoration: none;
+}
+/* visited link */
+a:visited {
+  color: #5F2C0E;
+  text-decoration: none;
+}
 
-code {
-  font-size: 80%;
+/* mouse over link */
+a:hover {
+  color: #5F2C0E;
+  text-decoration: none;
+}
+button{
+  cursor:pointer;
+}
+a{
+  cursor:pointer;
+}
+.form-control{
+  line-height: 1;
+}
+input{
+  font-size: 14px;
+}
+label{
+  font-size: 14px;
 }

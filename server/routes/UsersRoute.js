@@ -7,11 +7,11 @@ module.exports = (app)=>{
 
     app.route('/user/:id')
     .get(UsersController.getUserById)
-    .delete(UsersController.deleteUser)
-    .put(UsersController.updateUser);
+    .delete(UsersController.deleteUser);
 
     app.route('/user')
-    .post(UsersController.insertUser);
+    .post(UsersController.insertUser)
+    .put(UsersController.updateUser);
     
     app.route('/user/authenticate')
     .post(UsersController.authentication);

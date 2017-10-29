@@ -8,8 +8,6 @@ import { UsersService, AlertService, LocationService,
 import { EmploySituationService } from './_services/employ-situation.service';
 import { AreaExperService } from './_services/area-exper.service';
 import { VerifyService } from './_services/verify.service';
-import { TabService } from './_services/tab.service';
-
 
 import { LoginComponent } from './_pages/login/login.component';
 import { SignupComponent } from './_pages/signup/signup.component';
@@ -20,7 +18,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './_directives/alert/alert.component';
 import { ProfileComponent } from './_pages/profile/profile.component';
 import { AgmCoreModule } from '@agm/core';
-import { TabComponent } from './_pages/tab/tab.component';
+import { HeaderComponent } from './_pages/header/header.component';
+import { FooterComponent } from './_pages/footer/footer.component';
+import { PostComponent } from './_pages/post/post.component';
+import { InfoComponent } from './_pages/info/info.component';
+import { AboutComponent } from './_pages/about/about.component';
+import { ContactComponent } from './_pages/contact/contact.component';
+import { AccountComponent } from './_pages/account/account.component';
+import { SecurityComponent } from './_pages/security/security.component';
 @NgModule({
   
   declarations: [
@@ -30,7 +35,14 @@ import { TabComponent } from './_pages/tab/tab.component';
     HomeComponent,
     AlertComponent,
     ProfileComponent,
-    TabComponent
+    HeaderComponent,
+    FooterComponent,
+    PostComponent,
+    InfoComponent,
+    AboutComponent,
+    ContactComponent,
+    AccountComponent,
+    SecurityComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +57,8 @@ import { TabComponent } from './_pages/tab/tab.component';
   ],
   providers: [UsersService, AuthGuard, AlertService, LocationService,EmploySituationService, 
   AreaExperService, AuthenService,VerifyService,
-  Title, TabService ],
+  SecurityComponent,
+  Title, InfoComponent, AccountComponent, AboutComponent, ContactComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

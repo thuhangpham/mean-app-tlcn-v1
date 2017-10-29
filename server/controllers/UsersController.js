@@ -35,19 +35,22 @@ var users = {
                     .then((data) => { res.json({ result: 1, msg: "", data: data || {} }); })
                     .catch((err) => {
                         console.log(err);
-                        res.json({ result: 0, msg: `${err}`, data: {} });
+                       res.json({ result: 0, msg: `${err}`, data: {} });
                     })
             }
         }).catch(err=>{res.json({ result: 0, msg: `${err}`, data: {} });})
     },
 
     updateUser: (req, res) => {
+        console.log(req.body);
         req.body.last_update = new Date();
-        Users.findByIdAndUpdate(req.params.id, req.body, (err, data) => {
-            if (err) {
+        Users.findByIdAndUpdate( req.body._id, req.body, (err, data) => {
+            if (err || !data) {
                 console.log(`Update user error ${err}`);
-                res.json({ result: 0, msg: `Error: ${err}` });
-            } else res.json({ result: 1, msg: data || {} });
+                res.json({ result: 0, msg: `${err}`, data:{} });
+            }
+            if(data)
+                res.json({ result: 1, msg: data || {} });
         })
     },
 
@@ -77,7 +80,7 @@ var users = {
                         if (isMatch) {
                             
                             let token = jwt.sign({data: user}, config.JWT_SECRET, {
-                                expiresIn: 600 // expires in *1 min
+                                expiresIn: 30*60 // expires in *1 min
                             });
                             res.json({ result: 1, msg: 'Login successful!', data: user, token:token });
                         }
@@ -90,7 +93,8 @@ var users = {
             }
             console.log(user);
         })
-        else res.json({ result: 0, msg: 'Request error', data: {} });
+        else res.end.json({ result: 0, msg: 'Request error', data: {} });
+        
     },
     verify      :(req,res)=>{
         let content = {

@@ -1,0 +1,54 @@
+.profile-img{box-shadow: 0 5px 15px rgba(0,0,0,.5)}
+.image:hover .middle {
+    opacity: 1;
+    color: white;
+  }
+  .profile-img {
+    opacity: 1;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    left: 50%;
+  }
+  .image{
+    position: relative;
+  }
+  .text {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 11px;
+  }
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute ;
+    align-self: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+  }
+  
+  .image:hover .profile-img {
+    opacity: 0.3;
+  }
+
+  .profile-setting li{
+    box-shadow: 0 1px 3px rgba(0,0,1,.1);
+    display: inline;
+    padding: 1vh;
+  }
+  .profile-setting li a:hover{
+    color: #EB1919;
+    text-decoration: none;
+    cursor:pointer;
+}
+.active a {
+  color: #EB1919;
+  text-decoration: none;
+}
+.profile-setting{
+  -webkit-padding-start:0%;
+}
+form{
+  margin-top: 1rem;
+}

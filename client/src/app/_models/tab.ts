@@ -1,7 +1,9 @@
+import { Component } from '@angular/core';
 export class Tab {
 
-    private _active: boolean;
-    constructor(private _id: Number = -1, public title?: String, public content?: String) {
+    private _active: boolean = false;
+    constructor(private _id: Number = -1, public title?: String,
+         public link?: String, public content?: any) {
     }
 
     set active(active: boolean) {
@@ -17,5 +19,8 @@ export class Tab {
     }
     set id(id: Number) {
         this._id = id;
+    }
+    set component(component : Component){
+        this.content = component;
     }
 }
