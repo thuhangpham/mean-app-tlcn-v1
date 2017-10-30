@@ -12,10 +12,11 @@ import { VerifyService } from '../../_services/verify.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private email: any;
-  private password: any;
-  loading = false;
+  public email: any;
+  public password: any;
+  public loading = false;
   isRouteHome = false;
+
   constructor(private authen: AuthenService,
     private alert: AlertService, private router: Router,
     private verifyService: VerifyService,
@@ -26,10 +27,10 @@ export class LoginComponent implements OnInit {
       if (res.result === 1) {
         this.router.navigate(['/']);
       }
-    }) .catch(err => { })
+    }).catch(err => { Promise.reject(err || ''); });
   }
   ngOnInit() {
-    this.titleService.setTitle("Volunteer | Login");
+    this.titleService.setTitle('Volunteer | Login');
   }
   login(value: any) {
     let that = this;
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
       this.authen.login(this.email, this.password).then((data) => {
         this.loading = false;
         if (data.result === 1) {
-          if (data.data || data.token){
+          if (data.data || data.token) {
             that.userService.updateLocal(data.data, data.token);
           }
           this.router.navigate(['/home']);
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.alert.error(err);
         console.log(err);
-      })
+      });
     }
   }
 }

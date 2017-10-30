@@ -20,20 +20,31 @@ export class InfoComponent implements OnInit {
   last_name: any;
   first_name: any;
   loading: any = false;
+  load: any = true;
+  message: any;
   constructor(private userService: UsersService, private alertService: AlertService) {
-    this.minYear = (new Date().getFullYear() - 100).toString() + "-12-01";
-    this.maxYear = ((new Date()).getFullYear() - 10).toString() + "-12-01";
-    let id = JSON.parse(localStorage.getItem('currentUser')).user._id;
+    this.minYear = (new Date().getFullYear() - 100).toString() + '-12-01';
+    this.maxYear = ((new Date()).getFullYear() - 10).toString() + '-12-01';
+    if (localStorage.getItem('currentUser') === null) {
+      this.load = false;
+      this.message = 'Please login to continues...';
+      return;
+    }
+    this.message = 'Chờ em xíu...';
+
+    const id = JSON.parse(localStorage.getItem('currentUser')).user._id;
     this.userService.getUsersById(id).catch(err => { console.log(err) })
       .then(data => {
         if (data.result === 1) {
           this.user = data.data;
-          this.dob = (this.user.info.dob + "").substring(0, 10);
+          this.dob = (this.user.info.dob + '').substring(0, 10);
           this.last_name = this.user.info.last_name;
           this.first_name = this.user.info.first_name;
           this.gender = this.user.info.gender;
+          this.load = false;
+          this.message = '';
         }
-      })
+      });
   }
 
   ngOnInit() {
@@ -50,10 +61,10 @@ export class InfoComponent implements OnInit {
       this.userService.updateUser(this.user).subscribe(data => {
         this.loading = false;
         if (data.json().result === 1) {
-          this.alertService.success("Update completed!");
+          this.alertService.success('Update completed!');
         }
         else this.alertService.error(data.json().msg);
-      })
+      });
     }
   }
 }

@@ -1,11 +1,11 @@
-export class Ward{
-    error       : String;
+export class Ward {
+    error: String;
     error_message: String;
-    data        : [
+    data: [
         {
             WardId: Number;
             WardName: String;
         }
     ]
-    constructor(){}
+    constructor() { }
 }

@@ -1,10 +1,12 @@
-import { BrowserModule, Title  } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { UsersService, AlertService, LocationService,
-  AuthenService} from './_services/index';
+import {
+  UsersService, AlertService, LocationService,
+  AuthenService
+} from './_services/index';
 import { EmploySituationService } from './_services/employ-situation.service';
 import { AreaExperService } from './_services/area-exper.service';
 import { VerifyService } from './_services/verify.service';
@@ -27,7 +29,7 @@ import { ContactComponent } from './_pages/contact/contact.component';
 import { AccountComponent } from './_pages/account/account.component';
 import { SecurityComponent } from './_pages/security/security.component';
 @NgModule({
-  
+
   declarations: [
     AppComponent,
     LoginComponent,
@@ -51,14 +53,15 @@ import { SecurityComponent } from './_pages/security/security.component';
     HttpModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyDY8UvTl6TiF0W_NB7ycIj-feAfVbmftOs",
-      libraries: ["places"]
+      apiKey: 'AIzaSyDY8UvTl6TiF0W_NB7ycIj-feAfVbmftOs',
+      libraries: ['places']
     }),
   ],
-  providers: [UsersService, AuthGuard, AlertService, LocationService,EmploySituationService, 
-  AreaExperService, AuthenService,VerifyService,
-  SecurityComponent,
-  Title, InfoComponent, AccountComponent, AboutComponent, ContactComponent ],
+  providers: [UsersService, AuthGuard, AlertService, LocationService, EmploySituationService,
+    AreaExperService, AuthenService, VerifyService,
+    SecurityComponent,
+    AuthGuard,
+    Title, InfoComponent, AccountComponent, AboutComponent, ContactComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

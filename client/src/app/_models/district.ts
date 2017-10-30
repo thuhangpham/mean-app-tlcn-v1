@@ -1,12 +1,12 @@
-export class District{
-    error       : String;
+export class District {
+    error: String;
     error_message: String;
-    data        : [
+    data: [
         {
-            ProvinceId      : Number;
-            ProvinceName    : String;
-            Remote          : Number;
+            ProvinceId: Number;
+            ProvinceName: String;
+            Remote: Number;
         }
     ]
-    constructor(){}
+    constructor() { }
 }

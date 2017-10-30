@@ -1,11 +1,11 @@
 export class City {
-    error       : String;
+    error: String;
     error_message: String;
-    data        : [
+    data: [
         {
-            CityId      : Number;
-            CityName    : String;
+            CityId: Number;
+            CityName: String;
         }
     ]
-    constructor(){}
+    constructor() { }
 }

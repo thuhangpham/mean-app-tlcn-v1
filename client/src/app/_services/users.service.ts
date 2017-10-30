@@ -42,9 +42,9 @@ export class UsersService {
   updateUser(user) {
     return this.http.put(`${this.apiUrl}/user`, user);
   }
-  private handleError(err: any) {
-    console.log(err.message || err);
-    return err.message || err;
+  private handleError(error: any): Promise<any> {
+    console.log('An error occurred', error.message); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
   private extracData(res: Response) {
     let body = res.json();

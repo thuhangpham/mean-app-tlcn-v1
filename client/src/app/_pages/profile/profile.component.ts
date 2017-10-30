@@ -32,7 +32,8 @@ export class ProfileComponent implements OnInit {
     })
       .catch(err => {
         this.router.navigate(['/']);
-      })
+        Promise.reject('');
+      });
 
     let currUser = JSON.parse(localStorage.getItem('currentUser')).user;
     this.titleService.setTitle(currUser.info.fullname);
@@ -41,21 +42,21 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tabs = [new Tab(0, "Info", "info", this.infoComponent)
-      , new Tab(1, "Contact", "contact", this.contactComponent)
-      , new Tab(2, "About", "about", this.aboutComonent)
-      , new Tab(3, "Security", "security", this.securityComponent)];
+    this.tabs = [new Tab(0, 'Info', 'info', this.infoComponent)
+      , new Tab(1, 'Contact', 'contact', this.contactComponent)
+      , new Tab(2, 'About', 'about', this.aboutComonent)
+      , new Tab(3, 'Security', 'security', this.securityComponent)];
     this.tabs.forEach(t => {
       t.active = false;
       if (window.location.pathname === '/profile/' + t.link || this.router.url === '/profile/' + t.link)
         t.active = true;
-    })
+    });
 
   }
   tabClick(tab: Tab) {
     this.tabs.forEach(t => {
       t.active = false;
-    })
+    });
     tab.active = true;
   }
 

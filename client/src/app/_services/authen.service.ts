@@ -7,7 +7,7 @@ import { appConfig } from '../app.config';
 @Injectable()
 export class AuthenService {
   private api = appConfig.apiUrl;
-  constructor(private http: Http) { 
+  constructor(private http: Http) {
     // FB.init({
     //   appId      : "YOUR-APP-ID-HERE",
     //   status     : false, // the SDK will attempt to get info about the current user immediately after init
@@ -44,21 +44,21 @@ export class AuthenService {
   //    
   //   })
   // }
-  login(email,password) :Promise<any> {
-    return this.http.post(`${this.api}/user/authenticate`, { email: email, password: password, token : localStorage.getItem("currentToken") })
-    .toPromise()
-    .then(this.extracData)
-    .catch(this.handelError);
+  login(email, password): Promise<any> {
+    return this.http.post(`${this.api}/user/authenticate`, { email: email, password: password, token: localStorage.getItem("currentToken") })
+      .toPromise()
+      .then(this.extracData)
+      .catch(this.handelError);
   }
-  logout(){
+  logout() {
     localStorage.removeItem('currentUser');
   }
 
-  private handelError(err: any):Promise<any>{
+  private handelError(err: any): Promise<any> {
     return Promise.reject(err.message || err);
   }
-  private extracData(res: Response){
-      let body = res.json() || {};      
-      return body;
+  private extracData(res: Response) {
+    let body = res.json() || {};
+    return body;
   }
 }

@@ -1,5 +1,5 @@
-export class AreaExpertiseDetail{
-    name        : String;
-    description : String;
-    constructor(){}
+export class AreaExpertiseDetail {
+    name: String;
+    description: String;
+    constructor() { }
 }

@@ -18,7 +18,7 @@ import { Users, AreaExpertise, City, Ward, District, EmploySituation } from '../
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  private loading = false;
+  public loading = false;
   minYear: string;
   maxYear: string;
   cities: City;
@@ -28,8 +28,21 @@ export class SignupComponent implements OnInit {
   employSt: EmploySituation;
   city: Number;
   user: Users = new Users();
-  isRouteHome = false;
-  gender: any;
+  public isRouteHome = false;
+  public gender: any;
+  public password2:any;
+  public password: any;
+  public phone: any;
+  public email: any;
+  public  web_page: any;
+  public employment_sitution: any;
+  public areas_expertise: any;
+  public dob: any;
+  public last_name: any;
+  public first_name: any;
+  
+
+
 
   public latitude: number;
   public address: String;
@@ -38,7 +51,7 @@ export class SignupComponent implements OnInit {
   public zoom: number;
   public google: any;
 
-  @ViewChild("search")
+  @ViewChild('search')
   public searchElementRef: ElementRef;
 
   constructor(
@@ -56,14 +69,14 @@ export class SignupComponent implements OnInit {
       if (res.result === 1) {
         this.router.navigate(['/']);
       }
-    }).catch(err => {  })
+    }).catch(err => { Promise.reject(''||err); })
 
-    this.minYear = (new Date().getFullYear() - 100).toString() + "-12-01";
-    this.maxYear = ((new Date()).getFullYear() - 10).toString() + "-12-01";
+    this.minYear = (new Date().getFullYear() - 100).toString() + '-12-01';
+    this.maxYear = ((new Date()).getFullYear() - 10).toString() + '-12-01';
   }
 
   ngOnInit() {
-    this.titleService.setTitle("Volunteer | Signup");
+    this.titleService.setTitle('Volunteer | Signup');
     this.gender = 0;
     this.load();
     //set google maps defaults
@@ -80,9 +93,9 @@ export class SignupComponent implements OnInit {
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
+        types: ['address']
       });
-      autocomplete.addListener("place_changed", () => {
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -95,7 +108,7 @@ export class SignupComponent implements OnInit {
           //set latitude, longitude and zoom
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          console.log("lat, long " + this.latitude + " " + this.longitude);
+          console.log('lat, long ' + this.latitude + ' ' + this.longitude);
           console.log(place);
           this.address = place.formatted_address;
           this.zoom = 12;
@@ -105,7 +118,7 @@ export class SignupComponent implements OnInit {
   }
 
   private setCurrentPosition() {
-    if ("geolocation" in navigator) {
+    if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
@@ -116,7 +129,7 @@ export class SignupComponent implements OnInit {
   signup(value: any) {
     if (value) {
       if(!this.latitude || !this.longitude){
-        this.alert.error("Address is incorrect!");
+        this.alert.error('Address is incorrect!');
         return;
       }
       this.loading = true;
@@ -124,17 +137,17 @@ export class SignupComponent implements OnInit {
         (data) => {
           if (data.json().result === 1) {
             this.loading = false;
-            console.log("dang ky OK " + data);
+            console.log('dang ky OK ' + data);
             this.alert.success('Sign up successful!', true);
             this.router.navigate(['/login']);
           } else {
             this.loading = false;
-            console.log("dang ky err " + data);
+            console.log('dang ky err ' + data);
             this.alert.success(`${data.json().msg}`, true);
           }
         },
         (err) => {
-          console.log("err " + err);
+          console.log('err ' + err);
           this.alert.error(err, false);
           this.loading = false;
         });

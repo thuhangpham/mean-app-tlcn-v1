@@ -5,20 +5,18 @@ import { VerifyService } from '../_services/verify.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor (private route: Router, private verifyService: VerifyService){}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      this.verifyService.verify().then(res=>{
-        if (res.result === 1){
-          return true;
-        }else{
-          this.route.navigate(['/']);          
-          return false;
-        }
-      })
-      .catch(err=>{
-      })
-      return false;
+  constructor(private route: Router, private verifyService: VerifyService) { }
+  canActivate() {
+    return this.verifyService.verify().then(res => {
+      if (res.result === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+      .catch(err => {
+        Promise.reject(err || '');
+        return false;
+      });
   }
 }
